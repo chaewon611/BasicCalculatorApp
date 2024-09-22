@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -34,24 +35,45 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        fun isValidInput(): Boolean {
+            if (editTextNum1.text.isEmpty() || editTextNum2.text.isEmpty()) {
+                Toast.makeText(this, "Two numbers are required", Toast.LENGTH_SHORT).show()
+                return false
+            }
+            return true
+        }
+
         buttonAdd.setOnClickListener {
-            val result = editTextNum1.text.toString().toInt() + editTextNum2.text.toString().toInt()
-            calculateResult(result.toDouble())
+            if (isValidInput()) {
+                val result = editTextNum1.text.toString().toInt() + editTextNum2.text.toString().toInt()
+                calculateResult(result.toDouble())
+            }
         }
 
         buttonSubtract.setOnClickListener {
-            val result = editTextNum1.text.toString().toInt() - editTextNum2.text.toString().toInt()
-            calculateResult(result.toDouble())
+            if (isValidInput()) {
+                val result = editTextNum1.text.toString().toInt() - editTextNum2.text.toString().toInt()
+                calculateResult(result.toDouble())
+            }
         }
 
         buttonMultiply.setOnClickListener {
-            val result = editTextNum1.text.toString().toInt() * editTextNum2.text.toString().toInt()
-            calculateResult(result.toDouble())
+            if (isValidInput()) {
+                val result = editTextNum1.text.toString().toInt() * editTextNum2.text.toString().toInt()
+                calculateResult(result.toDouble())
+            }
         }
 
         buttonDivide.setOnClickListener {
-            val result = editTextNum1.text.toString().toInt() / editTextNum2.text.toString().toInt()
-            calculateResult(result.toDouble())
+            if (isValidInput()) {
+                val num2 = editTextNum2.text.toString().toInt()
+                if (num2 == 0) {
+                    Toast.makeText(this, "Can't divide by zero", Toast.LENGTH_SHORT).show()
+                } else {
+                    val result = editTextNum1.text.toString().toInt() / num2
+                    calculateResult(result.toDouble())
+                }
+            }
         }
     }
 }
